@@ -25,6 +25,9 @@ public class AccessTokenKeeper {
     private static final String MUSIC = "tatait_music";
     private static final String MUSICINIT = "no";
     private static final String MUSICVILABLE = "true";
+    
+    private static final String STR_CHAR_SET = "tatait_charset";
+    private static final String STR_CHAR_SET_GBK = "true";
     /**
      * 保存 Token 对象到 SharedPreferences。
      * 
@@ -138,5 +141,35 @@ public class AccessTokenKeeper {
         }
         SharedPreferences pref = context.getSharedPreferences(MUSIC, Context.MODE_APPEND);
         return pref.getBoolean(MUSICVILABLE, false);
+    }
+    
+    /**
+     * 保存是否采用GBK编码。
+     * 
+     * @param context 应用程序上下文环境
+     * @param flag 是否采用GBK编码
+     */
+    public static void writeCharGBK(Context context,boolean flag) {
+        if (null == context) {
+            return;
+        }
+        SharedPreferences pref = context.getSharedPreferences(STR_CHAR_SET, Context.MODE_APPEND);
+        Editor editor = pref.edit();
+        editor.putBoolean(STR_CHAR_SET_GBK, flag);
+        editor.commit();
+    }
+    /**
+     * 从 SharedPreferences 是否采用GBK编码
+     * 
+     * @param context 应用程序上下文环境
+     * 
+     * @return true/false
+     */
+    public static boolean readCharGBK(Context context) {
+        if (null == context) {
+            return true;
+        }
+        SharedPreferences pref = context.getSharedPreferences(STR_CHAR_SET, Context.MODE_APPEND);
+        return pref.getBoolean(STR_CHAR_SET_GBK, false);
     }
 }

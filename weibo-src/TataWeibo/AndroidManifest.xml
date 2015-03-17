@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tatait.tataweibo"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.5" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -33,6 +33,8 @@
         <activity android:name=".UserInfoActivity" />
         <activity android:name=".MoreActivity" />
         <activity android:name=".OpenFileActivity" />
+        <activity android:name=".TurnDurReading" />
+        <activity android:name=".ViewFile" />
         <activity android:name="com.tatait.tataweibo.util.file.ViewFile" />
         <!-- writer -->
         <activity

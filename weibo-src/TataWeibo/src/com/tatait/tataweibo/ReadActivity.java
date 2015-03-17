@@ -6,9 +6,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -18,7 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tatait.tataweibo.service.MusicService;
-import com.tatait.tataweibo.util.file.ViewFile;
+import com.tatait.tataweibo.util.AccessTokenKeeper;
 import com.tatait.tataweibo.util.show.CircularImage;
 
 /**
@@ -31,7 +37,8 @@ public class ReadActivity extends Activity {
 	private long exitTime = 0;
 	private boolean isRead = false;
 	private ImageView circularImage, home_title_bar_image;
-	private Button menu_btn_right, btnOpen, btnDemo, btnSetting,read_btn_close;
+	private Button menu_btn_right, btnOpen, btnDemo, btnSetting,
+			read_btn_close;
 	private RelativeLayout read_relative, read_scroll_relative;
 	public TextView txt_wb_title, read_view_contents;
 	// 启动Activity的返回码
@@ -121,7 +128,7 @@ public class ReadActivity extends Activity {
 		case RESULT_OK:
 			if (requestCode == REQUST_CODE_OPEN_FILE) {
 				// 用户打开文件，返回一个完整的文件路径
-				Intent i = new Intent(this, ViewFile.class);
+				Intent i = new Intent(this, TurnDurReading.class);
 				Bundle b = data.getExtras();
 				i.putExtras(b);
 				startActivity(i);
@@ -147,5 +154,58 @@ public class ReadActivity extends Activity {
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = this.getMenuInflater();
+		inflater.inflate(R.menu.load, menu);
+		menu.removeItem(R.id.action_settings);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.gb2312:
+			doGBK();
+			break;
+		case R.id.utf8:
+			doUTF();
+			break;
+		case R.id.about:
+			doAbout();
+			break;
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	private void doUTF() {
+		AccessTokenKeeper.writeCharGBK(ReadActivity.this, false);
+		Toast.makeText(getApplicationContext(), "已切换为UTF-8编码方式！",
+				Toast.LENGTH_SHORT).show();
+	}
+
+	private void doGBK() {
+		AccessTokenKeeper.writeCharGBK(ReadActivity.this, true);
+		Toast.makeText(getApplicationContext(), "已切换为GBK编码方式！",
+				Toast.LENGTH_SHORT).show();
+	}
+
+	// 弹出关于框
+	private void doAbout() {
+		Dialog dialog = new AlertDialog.Builder(ReadActivity.this)
+				.setTitle(R.string.aboutTitle)
+				.setMessage(R.string.aboutInfo)
+				.setPositiveButton(R.string.aboutOK,
+						new DialogInterface.OnClickListener() {
+							public void onClick(
+									DialogInterface dialoginterface, int i) {
+								// 按钮事件
+							}
+						}).create();
+		dialog.show();
 	}
 }

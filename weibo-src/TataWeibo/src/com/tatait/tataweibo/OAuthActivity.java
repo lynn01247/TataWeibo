@@ -56,7 +56,7 @@ public class OAuthActivity extends Activity {
 		/**
 		 * 模拟器区别初始化:获取当前已保存过的 Token
 		 */
-//		mAccessToken = AccessTokenKeeper.readAccessToken(this);
+		mAccessToken = AccessTokenKeeper.readAccessToken(this);
 		mAuthInfo = new AuthInfo(this, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE);
         mSsoHandler = new SsoHandler(OAuthActivity.this, mAuthInfo);
 		/**
@@ -69,8 +69,8 @@ public class OAuthActivity extends Activity {
 				/**
 				 * 执行SSO授权
 				 */
-				mSsoHandler.authorize(new AuthListener());
-//				getUserInfo(mAccessToken);
+//				mSsoHandler.authorize(new AuthListener());
+				getUserInfo(mAccessToken);
 			}
 
 		});

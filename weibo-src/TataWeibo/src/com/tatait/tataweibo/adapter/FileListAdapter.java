@@ -62,7 +62,7 @@ public class FileListAdapter extends BaseAdapter {
 		// return null;
 		LayoutInflater inflate = (LayoutInflater) mContext
 				.getSystemService(android.content.Context.LAYOUT_INFLATER_SERVICE);
-		convertView = (LinearLayout) inflate.inflate(R.layout.filelist, null);
+		convertView = (LinearLayout) inflate.inflate(R.layout.filelist_old, null);
 		TextView tv = (TextView) convertView
 				.findViewById(R.id.filelist_textview_item_content);
 		tv.setText(getItem(position).name);

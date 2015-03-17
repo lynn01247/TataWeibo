@@ -111,9 +111,8 @@ public class ViewFile extends Activity {
 	private void doAbout() {
 		
 		Dialog dialog = new AlertDialog.Builder(ViewFile.this)
-		.setTitle("aboutTitle")
-		.setMessage("aboutInfo")
-		.setPositiveButton("aboutOK",new DialogInterface.OnClickListener() {
+		.setTitle(R.string.aboutTitle).setMessage(R.string.aboutInfo)
+		.setPositiveButton(R.string.aboutOK,new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialoginterface, int i) {}
 						} )
 		.create();

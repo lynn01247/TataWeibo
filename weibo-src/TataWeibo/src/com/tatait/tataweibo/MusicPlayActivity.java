@@ -1,11 +1,17 @@
 package com.tatait.tataweibo;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -183,6 +189,42 @@ public class MusicPlayActivity extends Activity {
 		});
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = this.getMenuInflater();
+		inflater.inflate(R.menu.load, menu);
+		menu.removeItem(R.id.gb2312);
+		menu.removeItem(R.id.utf8);
+		menu.removeItem(R.id.action_settings);
+		return true;
+	}
+
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.about:
+			doAbout();
+			break;
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	//弹出关于框
+	private void doAbout() {
+		Dialog dialog = new AlertDialog.Builder(MusicPlayActivity.this).setTitle(
+				R.string.aboutTitle).setMessage(R.string.aboutInfo)
+				.setPositiveButton(R.string.aboutOK,
+						new DialogInterface.OnClickListener() {
+							public void onClick(
+									DialogInterface dialoginterface, int i) {
+								// 按钮事件
+							}
+						}).create();
+		dialog.show();
+	}
 	// 主菜单点击返回键，弹出对话框
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

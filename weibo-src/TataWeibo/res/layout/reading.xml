@@ -29,14 +29,23 @@
                 android:text="@string/open_text"
                 android:textSize="20sp" />
 
+            <TextView
+                android:id="@+id/read_textview"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/read_btn_open"
+                android:text="@string/text_shuoming" />
+
             <Button
                 android:id="@+id/read_btn_setting"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/read_btn_open"
+                android:layout_below="@+id/read_textview"
                 android:layout_centerHorizontal="true"
                 android:text="@string/setting_text"
-                android:textSize="20sp" />
+                android:textSize="20sp" 
+                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/read_btn_demo"
