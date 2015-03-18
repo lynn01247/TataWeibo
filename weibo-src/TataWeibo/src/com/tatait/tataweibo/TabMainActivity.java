@@ -11,17 +11,25 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.sina.weibo.sdk.exception.WeiboException;
+import com.sina.weibo.sdk.net.RequestListener;
+import com.sina.weibo.sdk.openapi.StatusesAPI;
 import com.tatait.tataweibo.bean.Constants;
 import com.tatait.tataweibo.service.MusicService;
+import com.tatait.tataweibo.util.AccessTokenKeeper;
 import com.tatait.tataweibo.util.show.SlidingMenu;
 
 public class TabMainActivity extends TabActivity {
+	protected static final String SHARE = "我发现Tata客户端灰常( ^_^ )不错嘛。赶紧来分享给大家：http://lynn01247.github.io/tata.dev.html";
 	public View msgTitle;// 信息头部按钮
 	CharSequence[] items = Constants.beautiful_items;
 	private SlidingMenu mMenu;
 	private RadioGroup mainGroup;
 	private TabHost th;
-	public static ImageButton menu_play_button, menu_next_button;
+	public static ImageButton menu_play_button, menu_next_button,menu_share_button;
+	
+	private Oauth2AccessToken mAccessToken;
 
 	@Override
 	protected void onStart() {
@@ -36,6 +44,7 @@ public class TabMainActivity extends TabActivity {
 		mMenu = (SlidingMenu) findViewById(R.id.id_menu);
 		menu_play_button = (ImageButton) findViewById(R.id.menu_play_button);
 		menu_next_button = (ImageButton) findViewById(R.id.menu_next_button);
+		menu_share_button = (ImageButton) findViewById(R.id.menu_share_button);
 		mainGroup = (RadioGroup) this.findViewById(R.id.main_radio);
 		menu_play_button.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -72,6 +81,14 @@ public class TabMainActivity extends TabActivity {
 					next.putExtra("control", "next");
 					startService(next);
 				}
+			}
+		});
+		menu_share_button.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				mAccessToken = AccessTokenKeeper.readAccessToken(TabMainActivity.this);
+				StatusesAPI api = new StatusesAPI(TabMainActivity.this, Constants.APP_KEY, mAccessToken);
+				api.update(SHARE, "0", "0",
+						new MyRequestListener());
 			}
 		});
 		// 完成各子页集成
@@ -119,5 +136,22 @@ public class TabMainActivity extends TabActivity {
 
 	public void toggleMenu(View view) {
 		mMenu.toggle();
+	}
+	/**
+	 * 
+	 * @author WSXL
+	 *
+	 */
+	class MyRequestListener implements RequestListener {
+		@Override
+		public void onComplete(String arg0) {
+			Toast.makeText(TabMainActivity.this, "分享成功!！",
+					Toast.LENGTH_SHORT).show();
+		}
+		@Override
+		public void onWeiboException(WeiboException arg0) {
+			Toast.makeText(TabMainActivity.this, "分享失败！",
+					Toast.LENGTH_SHORT).show();
+		}
 	}
 }

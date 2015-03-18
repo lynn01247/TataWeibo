@@ -32,6 +32,7 @@
     <string name="loving">我爱开发，功能暂未开放...</string>
     <string name="love_read">我爱阅读</string>
     <string name="love_music">我爱音乐</string>
+    <string name="love_share">微博分享</string>
     <string name="main_at">\@我</string>
     <string name="main_comment">评论</string>
     <string name="main_message">私信</string>
@@ -69,6 +70,7 @@
     <string name="song_list">歌曲列表</string>
     <string name="song_time">00:00</string>
     <string name="song_style">播放模式</string>
+    <string name="share">我发现Tata客户端灰常( ^_^ )不错嘛。赶紧来分享给大家：http://lynn01247.github.io/tata.dev.html</string>
     <string name="shuoming">Its a MSG tab page!</string>
     <string name="single_repeat">单曲循环</string>
     <string name="swich_code">点击Menu菜单切换合适编码</string>

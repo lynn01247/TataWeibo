@@ -14,7 +14,7 @@ public class Constants {
 	/**
 	 * 第三方应用可以使用自己的回调页。
 	 */
-	public static final String REDIRECT_URL = "https://api.weibo.com/oauth2/default.html";
+	public static final String REDIRECT_URL = "http://lynn01247.github.io/tata.dev.html";
 
 	/**
 	 * Scope 是 OAuth2.0 授权机制中 authorize 接口的一个参数。通过 Scope，平台将开放更多的微博
